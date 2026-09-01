@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require_relative '../config/environment'
+
+Rails.logger.info('bus-worker starting')
+
+periodic = Thread.new do
+  loop do
+    begin
+      Maintenance::DraftSweep.new.call
+    rescue StandardError => e
+      Rails.logger.error("maintenance error=#{e.class}: #{e.message}")
+    end
+    sleep 300
+  end
+end
+
+Bus::ConsumerGroup.new.run
+periodic.join

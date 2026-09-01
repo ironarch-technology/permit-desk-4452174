@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Application status &mdash; Mountport Building Permit Portal</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <header class="masthead">
+      <strong>City of Mountport &mdash; Development Services</strong>
+      <p>Building Permit Portal</p>
+    </header>
+    <nav class="portal" aria-label="Portal sections">
+      <ul>
+        <li><a href="/dashboard.html">My applications</a></li>
+        <li><a href="/apply.html">Start an application</a></li>
+        <li><a href="/staff.html">Front counter</a></li>
+      </ul>
+    </nav>
+    <main id="main">
+      <h1 id="page-title">Application status</h1>
+      <p class="muted" id="subtitle"></p>
+
+      <div class="card">
+        <h2>Summary</h2>
+        <table class="data" id="summary">
+          <caption>Application summary</caption>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card" id="corrections-card" hidden>
+        <h2>Corrections requested</h2>
+        <p>The plan reviewer needs changes before this application can move forward.</p>
+        <ul class="stack" id="corrections-list"></ul>
+        <p><a class="button" id="respond-link" href="#">Respond to corrections</a></p>
+      </div>
+
+      <div class="card" id="fees-card" hidden>
+        <h2>Fees due</h2>
+        <table class="data" id="fees">
+          <caption>Fee quote breakdown</caption>
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p id="fee-expiry" class="muted"></p>
+        <button type="button" id="pay-button">Pay fees</button>
+      </div>
+
+      <div class="card" id="permit-card" hidden>
+        <h2>Your permit</h2>
+        <p id="permit-details"></p>
+        <p><a class="button" id="inspections-link" href="#">Book an inspection</a></p>
+      </div>
+
+      <div class="card">
+        <h2>History</h2>
+        <table class="data" id="timeline">
+          <caption>Every recorded change to this application</caption>
+          <thead>
+            <tr>
+              <th scope="col">When</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Recorded by</th>
+              <th scope="col">Note</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card" id="withdraw-card" hidden>
+        <h2>Withdraw this application</h2>
+        <p class="muted">Withdrawing is final. Fees already paid are not refunded automatically.</p>
+        <button type="button" class="secondary" id="withdraw-button">Withdraw application</button>
+      </div>
+
+      <dialog class="confirm" id="withdraw-dialog" aria-labelledby="withdraw-dialog-title">
+        <h2 id="withdraw-dialog-title">Withdraw this application?</h2>
+        <p>This cannot be undone. The application will be closed and removed from the review queue.</p>
+        <div class="field">
+          <label for="withdraw-reason">Reason (optional)</label>
+          <input id="withdraw-reason" type="text" />
+        </div>
+        <div class="row">
+          <button type="button" id="withdraw-cancel" class="secondary">Keep application</button>
+          <button type="button" id="withdraw-confirm">Yes, withdraw it</button>
+        </div>
+      </dialog>
+    </main>
+    <footer class="portal">
+      <p>Development Services Department &middot; 200 Harbor Street, Mountport</p>
+    </footer>
+    <script src="/assets/api.js"></script>
+    <script src="/assets/status.js"></script>
+  </body>
+</html>

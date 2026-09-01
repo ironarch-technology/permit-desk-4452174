@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Book an inspection &mdash; Mountport Building Permit Portal</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <header class="masthead">
+      <strong>City of Mountport &mdash; Development Services</strong>
+      <p>Building Permit Portal</p>
+    </header>
+    <nav class="portal" aria-label="Portal sections">
+      <ul>
+        <li><a href="/dashboard.html">My applications</a></li>
+        <li><a href="/apply.html">Start an application</a></li>
+        <li><a href="/staff.html">Front counter</a></li>
+      </ul>
+    </nav>
+    <main id="main">
+      <h1>Book an inspection</h1>
+      <p class="muted" id="subtitle"></p>
+
+      <div class="card">
+        <div class="field">
+          <label for="inspection_type">Inspection type</label>
+          <select id="inspection_type">
+            <option value="framing">Framing</option>
+            <option value="electrical">Electrical</option>
+            <option value="plumbing">Plumbing</option>
+            <option value="insulation">Insulation</option>
+            <option value="final">Final</option>
+          </select>
+        </div>
+        <button type="button" id="search-button">Find appointments</button>
+      </div>
+
+      <div class="card" id="picker" hidden>
+        <h2>Available appointments</h2>
+        <p class="muted">Drag the appointment you want into the box below, then confirm.</p>
+
+        <div class="slot-tray" id="slot-tray"></div>
+
+        <h2>Your chosen appointment</h2>
+        <div class="dropzone" id="dropzone" data-filled="false">
+          <span id="dropzone-label">Drop an appointment here</span>
+        </div>
+
+        <p class="row">
+          <button type="button" id="confirm-button" disabled>Confirm appointment</button>
+        </p>
+      </div>
+
+      <div class="card" id="result" hidden>
+        <h2>Booking</h2>
+        <p id="result-text"></p>
+      </div>
+
+      <div class="card" id="booked" hidden>
+        <h2>Your inspections</h2>
+        <table class="data" id="bookings">
+          <caption>Inspections booked against this permit</caption>
+          <thead>
+            <tr>
+              <th scope="col">Type</th>
+              <th scope="col">Appointment</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </main>
+    <footer class="portal">
+      <p>Development Services Department &middot; 200 Harbor Street, Mountport</p>
+    </footer>
+    <script src="/assets/api.js"></script>
+    <script src="/assets/inspections.js"></script>
+  </body>
+</html>

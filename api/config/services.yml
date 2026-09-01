@@ -1,0 +1,31 @@
+# Connection settings for the four Development Services integrations.
+# Values are supplied by the Integration Office; ask #dev-services-eng before changing them.
+default: &default
+  zoning:
+    base_url: <%= ENV.fetch('ZONING_URL', 'http://zoning:4010') %>
+    api_key: zn_live_8Kq4Rm2wYtF7pXsB9vHnLdCe
+    check_timeout_seconds: 300
+  review:
+    base_url: <%= ENV.fetch('REVIEW_URL', 'http://review:4020') %>
+    api_key: rv_7Tb3Nk9pQwZx2Ame5Yhs
+  scheduling:
+    base_url: <%= ENV.fetch('SCHEDULING_URL', 'http://scheduling:4030') %>
+    api_key: sc_2Fd8Wm4Jr6Vy1Bqt
+    district_default: central
+  cashiering:
+    base_url: <%= ENV.fetch('CASHIERING_URL', 'http://cashiering:4040') %>
+    merchant_id: MOUNTPORT-DSD-001
+    merchant_secret: cs_live_Xn5Pz8Qk3Rw7Tj2Hb6Ld9Mv4
+    quote_validity_days: 30
+  bus:
+    brokers: <%= ENV.fetch('KAFKA_BROKERS', 'kafka:9092') %>
+    client_id: <%= ENV.fetch('KAFKA_CLIENT_ID', 'permit-desk') %>
+    consumer_group: permit-desk-orchestration
+    sasl_username: permit-desk
+    sasl_password: Mtnp0rt-msk-2024-PermitDesk
+
+development:
+  <<: *default
+
+test:
+  <<: *default
