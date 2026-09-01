@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Start an application &mdash; Mountport Building Permit Portal</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <header class="masthead">
+      <strong>City of Mountport &mdash; Development Services</strong>
+      <p>Building Permit Portal</p>
+    </header>
+    <nav class="portal" aria-label="Portal sections">
+      <ul>
+        <li><a href="/dashboard.html">My applications</a></li>
+        <li><a href="/apply.html">Start an application</a></li>
+        <li><a href="/staff.html">Front counter</a></li>
+      </ul>
+    </nav>
+    <main id="main">
+      <h1>Apply for a building permit</h1>
+
+      <ol class="steps" id="steps">
+        <li data-step="1" aria-current="step">1. Property</li>
+        <li data-step="2">2. Work proposed</li>
+        <li data-step="3">3. Your details</li>
+        <li data-step="4">4. Review and submit</li>
+      </ol>
+
+      <div id="error-summary" class="error-summary" hidden>
+        <h2>Check the following before continuing</h2>
+        <ul id="error-list"></ul>
+      </div>
+
+      <form id="apply-form" novalidate>
+        <section class="card" data-panel="1">
+          <h2 id="heading-1" tabindex="-1">Property</h2>
+          <div class="field">
+            <label for="parcel_address">Property address</label>
+            <span class="hint" id="parcel_address_hint">Street number and name, as it appears on your tax bill.</span>
+            <input id="parcel_address" name="parcel_address" type="text" aria-describedby="parcel_address_hint" autocomplete="street-address" />
+            <p class="field-error" id="parcel_address_error" hidden></p>
+          </div>
+          <div class="row">
+            <button type="button" data-advance="2">Continue</button>
+          </div>
+        </section>
+
+        <section class="card" data-panel="2" hidden>
+          <h2 id="heading-2" tabindex="-1">Work proposed</h2>
+
+          <fieldset style="border:0;padding:0;margin:0 0 1.1rem;">
+            <legend style="font-weight:600;margin-bottom:0.3rem;">Type of work</legend>
+            <div class="choice-grid" id="work-types"></div>
+            <p class="field-error" id="work_type_error" hidden></p>
+          </fieldset>
+
+          <div class="field">
+            <label for="scope_of_work">Describe the work</label>
+            <span class="hint" id="scope_hint">What is being built, altered, or removed. Two or three sentences is enough.</span>
+            <textarea id="scope_of_work" name="scope_of_work" aria-describedby="scope_hint"></textarea>
+            <p class="field-error" id="scope_of_work_error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="declared_valuation">Declared value of the work (US dollars)</label>
+            <span class="hint" id="valuation_hint">Materials and labour, excluding land. Whole dollars.</span>
+            <input id="declared_valuation" name="declared_valuation" type="number" min="1" step="1" aria-describedby="valuation_hint" />
+            <p class="field-error" id="declared_valuation_error" hidden></p>
+          </div>
+
+          <div class="row">
+            <button type="button" class="secondary" data-advance="1">Back</button>
+            <button type="button" data-advance="3">Continue</button>
+          </div>
+        </section>
+
+        <section class="card" data-panel="3" hidden>
+          <h2 id="heading-3" tabindex="-1">Your details</h2>
+          <div class="field">
+            <label for="applicant_name">Full name</label>
+            <input id="applicant_name" name="applicant_name" type="text" autocomplete="name" />
+            <p class="field-error" id="applicant_name_error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="applicant_email">Email address</label>
+            <input id="applicant_email" name="applicant_email" type="email" autocomplete="email" />
+            <p class="field-error" id="applicant_email_error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="applicant_phone">Phone number (optional)</label>
+            <input id="applicant_phone" name="applicant_phone" type="text" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="contractor_license_number">Contractor licence number (contractors only)</label>
+            <input id="contractor_license_number" name="contractor_license_number" type="text" />
+            <p class="field-error" id="contractor_license_number_error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="contractor_license_expires_on">Licence expiry date</label>
+            <input id="contractor_license_expires_on" name="contractor_license_expires_on" type="date" />
+            <p class="field-error" id="contractor_license_expires_on_error" hidden></p>
+          </div>
+          <div class="row">
+            <button type="button" class="secondary" data-advance="2">Back</button>
+            <button type="button" data-advance="4">Continue</button>
+          </div>
+        </section>
+
+        <section class="card" data-panel="4" hidden>
+          <h2 id="heading-4" tabindex="-1">Review and submit</h2>
+          <table class="data" id="review-table">
+            <caption>What you are about to submit</caption>
+            <tbody></tbody>
+          </table>
+          <p class="muted">
+            Submitting sends your application to the zoning check. You will not be able to
+            edit it afterwards.
+          </p>
+          <div class="row">
+            <button type="button" class="secondary" data-advance="3">Back</button>
+            <button type="submit" id="submit-button">Submit application</button>
+          </div>
+        </section>
+      </form>
+    </main>
+    <footer class="portal">
+      <p>Development Services Department &middot; 200 Harbor Street, Mountport</p>
+    </footer>
+    <script src="/assets/api.js"></script>
+    <script src="/assets/apply.js"></script>
+  </body>
+</html>

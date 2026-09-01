@@ -1,0 +1,110 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+    branches: [main]
+
+permissions: write-all
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE: ${{ github.repository }}/permit-desk
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: permitdesk
+          POSTGRES_PASSWORD: permitdesk
+          POSTGRES_DB: permitdesk_test
+        options: >-
+          --health-cmd "pg_isready -U permitdesk -d permitdesk_test"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+        ports: ['5432:5432']
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: ruby/setup-ruby@a4effe49ee8ee5b8b5091268c473a4628afb5651
+        with:
+          ruby-version: '3.2.11'
+          bundler-cache: true
+          working-directory: api
+
+      - name: rspec
+        working-directory: api
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://permitdesk:permitdesk@localhost:5432/permitdesk
+        run: bundle exec rspec
+
+  scan:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: dependency audit
+        continue-on-error: true
+        working-directory: api
+        run: |
+          gem install bundler-audit
+          bundle-audit check --update
+
+      - name: image scan
+        continue-on-error: true
+        uses: aquasecurity/trivy-action@18f2510ee396bbf400402947b394f2dd8c87dbb0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          exit-code: '1'
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [test, scan]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build and push
+        uses: docker/build-push-action@4f58ea79222b3b9dc2c8bbdd6debcef730109a75
+        with:
+          context: ./api
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}
+          build-args: |
+            PORTAL_TOKEN_SECRET=${{ secrets.PORTAL_TOKEN_SECRET }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd
+        with:
+          terraform_version: 1.9.5
+
+      - name: apply
+        working-directory: infra
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          terraform init
+          terraform apply -auto-approve -var="image_tag=${{ github.sha }}"

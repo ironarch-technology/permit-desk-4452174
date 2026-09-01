@@ -1,0 +1,19 @@
+# Rails
+api/log/*
+api/tmp/*
+api/.bundle
+!api/log/.keep
+!api/tmp/.keep
+
+# Node
+services/node_modules/
+
+# Local environment
+.env
+.env.local
+
+# Editor and OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,9 @@
+{
+  "name": "mountport-service-doubles",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Local stand-ins for the four Development Services integrations.",
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}

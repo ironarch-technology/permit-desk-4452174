@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in &mdash; Mountport Building Permit Portal</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <header class="masthead">
+      <strong>City of Mountport &mdash; Development Services</strong>
+      <p>Building Permit Portal</p>
+    </header>
+    <main id="main">
+      <h1>Sign in to the permit portal</h1>
+      <p class="muted">
+        Use the email address on your permit account. Contractors registered with the
+        city use their business account.
+      </p>
+
+      <div class="card">
+        <div id="signin-error" class="error-summary" hidden role="alert">
+          <h2>We could not sign you in</h2>
+          <p id="signin-error-text"></p>
+        </div>
+
+        <form id="signin-form" novalidate>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </div>
+    </main>
+    <footer class="portal">
+      <p>Development Services Department &middot; 200 Harbor Street, Mountport</p>
+    </footer>
+    <script src="/assets/api.js"></script>
+    <script src="/assets/signin.js"></script>
+  </body>
+</html>

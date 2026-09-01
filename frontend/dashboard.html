@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My applications &mdash; Mountport Building Permit Portal</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <header class="masthead">
+      <strong>City of Mountport &mdash; Development Services</strong>
+      <p>Building Permit Portal</p>
+    </header>
+    <nav class="portal" aria-label="Portal sections">
+      <ul>
+        <li><a href="/dashboard.html">My applications</a></li>
+        <li><a href="/apply.html">Start an application</a></li>
+        <li><a href="/staff.html">Front counter</a></li>
+      </ul>
+    </nav>
+    <main id="main">
+      <h1>My applications</h1>
+      <p class="muted" id="greeting"></p>
+
+      <div class="card">
+        <table class="data" id="applications">
+          <caption>Applications on your account, newest first</caption>
+          <thead>
+            <tr>
+              <th scope="col">Reference</th>
+              <th scope="col">Property</th>
+              <th scope="col">Work type</th>
+              <th scope="col">Status</th>
+              <th scope="col">Last updated</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p id="empty" hidden>You have no applications yet.</p>
+      </div>
+
+      <p><a class="button" href="/apply.html">Start a new application</a></p>
+    </main>
+    <footer class="portal">
+      <p>Development Services Department &middot; 200 Harbor Street, Mountport</p>
+    </footer>
+    <script src="/assets/api.js"></script>
+    <script src="/assets/dashboard.js"></script>
+  </body>
+</html>

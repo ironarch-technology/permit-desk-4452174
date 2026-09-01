@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Respond to corrections &mdash; Mountport Building Permit Portal</title>
+    <link rel="stylesheet" href="/assets/portal.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <header class="masthead">
+      <strong>City of Mountport &mdash; Development Services</strong>
+      <p>Building Permit Portal</p>
+    </header>
+    <nav class="portal" aria-label="Portal sections">
+      <ul>
+        <li><a href="/dashboard.html">My applications</a></li>
+        <li><a href="/apply.html">Start an application</a></li>
+        <li><a href="/staff.html">Front counter</a></li>
+      </ul>
+    </nav>
+    <main id="main">
+      <h1>Respond to corrections</h1>
+      <p class="muted" id="subtitle"></p>
+
+      <div id="error-summary" class="error-summary" hidden>
+        <h2>Check the following before continuing</h2>
+        <ul id="error-list"></ul>
+      </div>
+
+      <form id="corrections-form" novalidate>
+        <ul class="stack" id="items"></ul>
+        <button type="submit">Send responses to the reviewer</button>
+      </form>
+    </main>
+    <footer class="portal">
+      <p>Development Services Department &middot; 200 Harbor Street, Mountport</p>
+    </footer>
+    <script src="/assets/api.js"></script>
+    <script src="/assets/corrections.js"></script>
+  </body>
+</html>
