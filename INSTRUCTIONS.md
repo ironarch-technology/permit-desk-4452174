@@ -35,7 +35,7 @@ That last one isn't filler. Knowing what not to touch is most of the job.
 ## Using AI
 
 Point an AI at it if that's how you work. Most people will, and we'd rather see how you
-actually operate than watch you pretend otherwise. Nobody is going to ask whether you did.
+actually operate than watch you pretend otherwise.
 
 It'll hand you a list. What it won't tell you is which two or three things you'd stop a
 launch over, which ones you'd live with, or what you'd have the team do on Monday. That's
